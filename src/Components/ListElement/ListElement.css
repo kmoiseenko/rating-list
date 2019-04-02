@@ -1,0 +1,61 @@
+.app-list__element {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+}
+.app-list .app-list__element:nth-child(1) {
+  width: 70%;
+  margin: 0 auto;
+  font-size: 24px;
+}
+.app-list .app-list__element:nth-child(2) {
+  width: 80%;
+  margin: 0 auto;
+  font-size: 22px;
+}
+.app-list .app-list__element:nth-child(3) {
+  width: 90%;
+  margin: 0 auto;
+  font-size: 20px;
+}
+.app-list .app-list__element:hover .app-list__element-delete {
+  opacity: 1;
+}
+.app-list .app-list__element + .app-list__element {
+  margin-top: 15px;
+}
+
+.app-list__element-name {
+  font-size: inherit;
+}
+
+.app-counter {
+  display: flex;
+  flex: 1;
+  justify-content: flex-end;
+  align-items: center;
+  padding-right: 10px;
+}
+.app-counter__input {
+  width: 100px;
+  font-size: inherit;
+}
+.app-list__element-add {
+  color: blue;
+  cursor: pointer;
+  margin-right: 10px;
+}
+.app-list__element-cancel {
+  color: red;
+  cursor: pointer;
+}
+.app-list__element-delete {
+  color: red;
+  opacity: 0;
+  cursor: pointer;
+  font-size: 16px;
+}
