@@ -19,6 +19,7 @@ body,
   width: 720px;
   height: 100%;
   margin: 0 auto;
+  padding-bottom: 20px;
 }
 
 .app {
@@ -30,6 +31,8 @@ body,
   top: 0;
   left: 0;
   right: 0;
+  z-index: 99;
+  background-color: #ffffff;
 }
 
 .app-list {
@@ -48,4 +51,5 @@ body,
   border-radius: 5px;
   font-size: 16px;
   min-height: 54px;
+  background-color: transparent;
 }

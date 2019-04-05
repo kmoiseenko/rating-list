@@ -3,138 +3,111 @@ import ListElement from './Components/ListElement/ListElement';
 import NewListElement from './Components/NewListElement/NewListElement';
 import './App.css';
 
+import { globalConst, generateRandom, sortList } from './Tools/tools';
+
 class App extends Component {
   constructor() {
     super();
 
     this.state = {
       users: [
-        { id: '_' + Math.random().toString(36).substr(2, 9), name: 'Kostya', score: 23 },
-        { id: '_' + Math.random().toString(36).substr(2, 9), name: 'Max', score: 1 },
-        { id: '_' + Math.random().toString(36).substr(2, 9), name: 'Kevin', score: 24 },
-        { id: '_' + Math.random().toString(36).substr(2, 9), name: 'John', score: 11 },
-        { id: '_' + Math.random().toString(36).substr(2, 9), name: 'Paul', score: 110 },
-        { id: '_' + Math.random().toString(36).substr(2, 9), name: 'Clair', score: 99 },
-        { id: '_' + Math.random().toString(36).substr(2, 9), name: 'Engine', score: 9 },
-        { id: '_' + Math.random().toString(36).substr(2, 9), name: 'Pol', score: 91 },
-        { id: '_' + Math.random().toString(36).substr(2, 9), name: 'Merry', score: 17 },
-        { id: '_' + Math.random().toString(36).substr(2, 9), name: 'Ment', score: 71 }
+        { id: generateRandom(), name: 'Kostya', score: 23 },
+        { id: generateRandom(), name: 'Max', score: 1 },
+        { id: generateRandom(), name: 'Kevin', score: 24 },
+        { id: generateRandom(), name: 'John', score: 11 },
+        { id: generateRandom(), name: 'Paul', score: 110 },
+        { id: generateRandom(), name: 'Clair', score: 99 },
+        { id: generateRandom(), name: 'Engine', score: 9 },
+        { id: generateRandom(), name: 'Pol', score: 91 },
+        { id: generateRandom(), name: 'Merry', score: 17 },
+        { id: generateRandom(), name: 'Ment', score: 71 }
       ],
-      sortUsers: true,
       addElement: false
     };
-  }
 
-  sortUsersList = () => {
-    let result;
-
-    result = this.state.users.sort((a, b) => {
-      return b.score - a.score;
-    });
-
-    return result;
+    sortList(this.state.users);
   }
 
   generateList = () => {
-    let result;
-
-    if(this.state.sortUsers === true) {
-      result = this.sortUsersList();
-      this.state.sortUsers = false;
-    }
-
-    result = this.state.users.map((item) => {
+    return this.state.users.map((item) => {
       return (
         <ListElement
-          key={item.id}
-          data={item}
-          handleUpdateName={this.handleUpdateName}
-          handleUpdateScore={this.handleUpdateScore}
-          handleConfirmUpdateScore={this.handleConfirmUpdateScore}
-          handleDeleteElement={this.handleDeleteElement}
+          key={ item.id }
+          data={ item }
+          globalConst={ globalConst }
+          handleListElementUpdate={ this.handleListElementUpdate }
         />
       );
     });
-
-    return result;
   }
 
   manageVisabilityOfNewListElement = () => {
     if (this.state.addElement) {
       return (
         <NewListElement
-          handleConfirmAddElement={this.handleConfirmAddElement}
-          handleCancelAddingNewElement={this.handleCancelAddingNewElement}
+          handleConfirmAddElement={ this.handleConfirmAddElement }
+          handleCancelAddNewElement={ this.handleCancelAddNewElement }
         />
       );
     }
   }
 
   manageVisabilityOfAddListElementBtn = () => {
-    if (!this.state.addElement) { return (<button className="app-btn-add" onClick={ this.handleAddElement }>Add player</button>) }
-  }
-
-  handleAddElement = () => {
-    this.setState({addElement: true});
+    if (!this.state.addElement) {
+      return (
+        <button
+          className="app-btn-add"
+          onClick={ this.handleAddElement }>
+          Add player
+        </button>
+      );
+    }
   }
 
   handleConfirmAddElement = (item) => {
-    const usersState = [...this.state.users];
-
-    usersState.push(item);
-    this.setState({
-      users: [...usersState],
-      addElement: false,
-      sortUsers: true
-    });
+    this.setState(currentState => ({
+      users: sortList([...currentState.users, item])
+    }));
   }
 
-  handleCancelAddingNewElement = () => {
-    this.setState({addElement: false});
+  handleAddElement = () => {
+    this.setState({ addElement: true });
   }
 
-  handleUpdateName = (e, elementId) => {
-    const usersState = [...this.state.users];
-    const user = usersState.find(item => item.id === elementId);
-
-    user.name = e.target.value;
-    this.setState({
-      usersState,
-      user
-    });
+  handleCancelAddNewElement = () => {
+    this.setState({ addElement: false });
   }
 
-  handleUpdateScore = (e, elementId) => {
-    const usersState = [...this.state.users];
-    const user = usersState.find(item => item.id === elementId);
+  handleListElementUpdate = (e, elementId, type) => {
+    const { users } = this.state;
+    const userIndex = users.findIndex(item => item.id === elementId);
 
-    user.score = e.target.value;
-    user.showConfirm = true;
-    this.setState({
-      usersState,
-      user
-    });
-  }
+    if (userIndex === -1) return false;
+    switch (type) {
+      case globalConst.UPDATE_PLAYER_NAME:
+        users[userIndex].name = e.target.value;
+        break;
 
-  handleConfirmUpdateScore = (elementId) => {
-    const usersState = [...this.state.users];
-    const user = usersState.find(item => item.id === elementId);
+      case globalConst.UPDATE_PLAYER_SCORES:
+        users[userIndex].score = e.target.value;
+        users[userIndex].showConfirm = true;
+        break;
 
-    user.showConfirm = false;
-    this.setState({
-      usersState,
-      user,
-      sortUsers: true
-    });
-  }
+      case globalConst.CONFIRM_PLAYER_SCORES_UPDATE:
+        users[userIndex].showConfirm = false;
+        sortList(users);
+        break;
 
-  handleDeleteElement = (elementId) => {
-    const usersState = [...this.state.users];
-    const updatedUsersState = usersState.filter(item => {
-      if(item.id !== elementId) { return item; }
-    });
+      case globalConst.DELETE_PLAYER_FROM_LIST:
+        users.splice(userIndex, 1);
+        break;
 
-    this.setState({users: updatedUsersState});
+      default:
+        //
+        break;
+    }
+
+    this.setState({ users });
   }
 
   render() {
