@@ -1,37 +1,37 @@
 .app-list__element {
+  position: relative;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 15px;
-  border: 1px solid #ccc;
+  background-color: #fff;
+  box-shadow: 0 0 10px 0 #ccc;
   border-radius: 5px;
-  font-size: 16px;
+  font-size: 20px;
 }
 .app-list .app-list__element:nth-child(1) {
   width: 70%;
   margin: 0 auto;
-  font-size: 24px;
+  font-size: 30px;
 }
 .app-list .app-list__element:nth-child(2) {
   width: 80%;
   margin: 0 auto;
-  font-size: 22px;
+  font-size: 28px;
 }
 .app-list .app-list__element:nth-child(3) {
   width: 90%;
   margin: 0 auto;
-  font-size: 20px;
-}
-.app-list .app-list__element:hover .app-list__element-delete {
-  opacity: 1;
+  font-size: 26px;
 }
 .app-list .app-list__element + .app-list__element {
-  margin-top: 15px;
+  margin-top: 20px;
 }
-
-.app-list__element-name {
+.app-list__element-name,
+.app-counter__input {
   font-size: inherit;
 }
+
 
 .app-counter {
   display: flex;
@@ -40,22 +40,36 @@
   align-items: center;
   padding-right: 10px;
 }
-.app-counter__input {
-  width: 100px;
-  font-size: inherit;
+.app-counter__control {
+  display: flex;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
 }
+.app-counter__data {
+  padding: 0 15px;
+}
+
+
 .app-list__element-add {
-  color: blue;
+  color: #0684bd;
   cursor: pointer;
   margin-right: 10px;
 }
-.app-list__element-cancel {
-  color: red;
-  cursor: pointer;
+.app-list__element-add:hover {
+  color: #0aadf7;
 }
+.app-list__element-cancel,
 .app-list__element-delete {
-  color: red;
-  opacity: 0;
+  position: absolute;
+  left: 102%;
+  fill: #e83138;
   cursor: pointer;
   font-size: 16px;
+  width: 20px;
+  height: 20px;
+}
+.app-list__element-cancel:hover,
+.app-list__element-delete:hover {
+  fill: #ec5a5f;
 }
