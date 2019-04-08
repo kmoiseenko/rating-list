@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { isEqual } from 'lodash';
+import socketConnect from './socket/socketConnect';
 import ListElement from './Components/ListElement/ListElement';
 import NewListElement from './Components/NewListElement/NewListElement';
 import './App.css';
@@ -6,8 +8,8 @@ import './App.css';
 import { globalConst, generateRandom, sortList } from './Tools/tools';
 
 class App extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.state = {
       users: [
@@ -26,6 +28,13 @@ class App extends Component {
     };
 
     sortList(this.state.users);
+  }
+
+  componentDidMount() {
+    this.props.client.on(
+      'UPDATE_USERS_LIST',
+      users => this.setState({ users })
+    );
   }
 
   generateList = () => {
@@ -65,8 +74,13 @@ class App extends Component {
   }
 
   handleConfirmAddElement = (item) => {
-    this.setState(currentState => ({
-      users: sortList([...currentState.users, item])
+    const { users } = this.state;
+
+    users.push(item);
+    sortList(users);
+    this.props.client.emit('UPDATE_USERS_LIST', users);
+    this.setState(prevState => ({
+      users: users
     }));
   }
 
@@ -84,17 +98,15 @@ class App extends Component {
 
     if (userIndex === -1) return false;
     switch (type) {
-      case globalConst.UPDATE_PLAYER_NAME:
-        users[userIndex].name = e.target.value;
+      case globalConst.INCREASE_PLAYER_SCORES:
+        users[userIndex].score++;
+        sortList(users);
         break;
 
-      case globalConst.UPDATE_PLAYER_SCORES:
-        users[userIndex].score = e.target.value;
-        users[userIndex].showConfirm = true;
-        break;
-
-      case globalConst.CONFIRM_PLAYER_SCORES_UPDATE:
-        users[userIndex].showConfirm = false;
+      case globalConst.DECREASE_PLAYER_SCORES:
+        if (users[userIndex].score > 0) {
+          users[userIndex].score--;
+        }
         sortList(users);
         break;
 
@@ -107,7 +119,8 @@ class App extends Component {
         break;
     }
 
-    this.setState({ users });
+    this.props.client.emit('UPDATE_USERS_LIST', users);
+    this.setState(prevState => ({...prevState, users }));
   }
 
   render() {
@@ -124,4 +137,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default socketConnect(App);
