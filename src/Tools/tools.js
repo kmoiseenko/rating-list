@@ -1,7 +1,7 @@
 const globalConst = {
   UPDATE_PLAYER_NAME: 'updatePlayerName',
-  UPDATE_PLAYER_SCORES: 'updatePlayerScores',
-  CONFIRM_PLAYER_SCORES_UPDATE: 'confirmPlayerScoresUpdate',
+  INCREASE_PLAYER_SCORES: 'increasePlayerScores',
+  DECREASE_PLAYER_SCORES: 'decreasePlayerScores',
   DELETE_PLAYER_FROM_LIST: 'deletePlayerFromList'
 }
 
