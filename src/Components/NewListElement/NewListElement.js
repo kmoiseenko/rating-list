@@ -15,40 +15,47 @@ class NewListElement extends Component {
   }
 
   handleAddElementClick = () => {
-    this.props.handleConfirmAddElement(this.state);
-    this.setState({
-      id: generateRandom(),
-      name: '',
-      score: 0
-    });
+    if (this.state.name) {
+      this.props.handleConfirmAddElement(this.state);
+      this.setState({
+        id: generateRandom(),
+        name: '',
+        score: 0
+      });
+    } else {
+      alert('Enter player name');
+    }
   }
 
   handleCancelClick = () => {
-    this.props.handleCancelAddNewElement();
+    this.props.manageAddElementState();
   }
 
   handleUpdateElement = (e, type) => {
-    const user = this.state;
+    const player = this.state;
 
     switch (type) {
       case globalConst.UPDATE_PLAYER_NAME:
-        user.name = e.target.value
+        player.name = e.target.value
+        this.setState({name: player.name});
         break;
 
       case globalConst.DECREASE_PLAYER_SCORES:
-        if (user.score > 0) { user.score-- }
+        if (player.score > 0) {
+          player.score--;
+          this.setState({score: player.score});
+        }
         break;
 
       case globalConst.INCREASE_PLAYER_SCORES:
-        user.score++;
+        player.score++;
+        this.setState({score: player.score});
         break;
 
       default:
         //
         break;
     }
-
-    this.setState(prevState => ({...prevState, user }));
   }
 
   render() {
