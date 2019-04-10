@@ -10,12 +10,22 @@
   /**/
 }
 
+header {
+  position: absolute;
+}
+
 .app-system-controls {
-  /**/
+  display: flex;
+  padding: 10px;
 }
 
 .app-system-controls__item {
-  width: 30px;
+  width: 20px;
+  cursor: pointer;
+}
+
+.app-system-controls__item + .app-system-controls__item {
+  margin-left: 20px;
 }
 
 .app-new-container {
