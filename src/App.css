@@ -10,6 +10,14 @@
   /**/
 }
 
+.app-system-controls {
+  /**/
+}
+
+.app-system-controls__item {
+  width: 30px;
+}
+
 .app-new-container {
   position: absolute;
   top: 0;
@@ -23,4 +31,11 @@
   height: 100%;
   overflow: auto;
   padding: 100px 50px 10px 50px;
+}
+
+@media (max-width: 768px) {
+  .app-new-container {
+    left: 5%;
+    right: 5%;
+  }
 }
