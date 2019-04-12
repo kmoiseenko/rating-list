@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import './LoginForm.css';
 
-import { generateRandom, globalConst } from './../../Tools/tools';
-
 class LoginForm extends Component {
   constructor(props) {
     super(props);

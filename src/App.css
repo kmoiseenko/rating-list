@@ -1,17 +1,6 @@
-.container {
-  position: relative;
-  width: 720px;
-  height: 100%;
-  margin: 0 auto;
-  padding-bottom: 20px;
-}
-
-.app {
-  /**/
-}
-
 header {
   position: absolute;
+  background-color: #f2f2f2;
 }
 
 .app-system-controls {
@@ -28,6 +17,25 @@ header {
   margin-left: 20px;
 }
 
+.app-system-controls__file-upload-input {
+  position: absolute;
+  width: inherit;
+  height: inherit;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.container {
+  position: relative;
+  width: 720px;
+  height: 100%;
+  margin: 0 auto;
+}
+
+.app {
+  /**/
+}
+
 .app-new-container {
   position: absolute;
   top: 0;
@@ -41,6 +49,7 @@ header {
   height: 100%;
   overflow: auto;
   padding: 100px 50px 10px 50px;
+  background-color: #f2f2f2;
 }
 
 @media (max-width: 768px) {

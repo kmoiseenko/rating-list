@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './NewListElement.css';
 
-import { generateRandom, globalConst } from './../../Tools/tools';
+import { generateRandom, globalConst } from './../../helpers/tools.js';
 
 class NewListElement extends Component {
   constructor() {
