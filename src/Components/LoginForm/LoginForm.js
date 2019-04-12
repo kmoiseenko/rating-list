@@ -32,7 +32,7 @@ class LoginForm extends Component {
   }
 
   closeForm = () => {
-    this.props.manageFormVisability();
+    this.props.manageLoginFormVisability();
   }
 
   render() {

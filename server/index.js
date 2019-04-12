@@ -1,3 +1,4 @@
+const express = require('express');
 const app = require('express')();
 const bodyParser = require('body-parser');
 const http = require('http').Server(app);
@@ -5,16 +6,18 @@ const io = require('socket.io')(http);
 const low = require('lowdb');
 const FileSync = require('lowdb/adapters/FileSync');
 const multer  = require('multer');
-const fs = require('fs')
+const fs = require('fs');
+const path = require('path');
 
 
 const databaseFile = new FileSync('database.json');
 const database = low(databaseFile);
-const pathForBgImage = './../public/assets';
+const pathForBgImage = process.env.NODE_ENV === 'development' ? './../public/assets' : './../build/assets';
 const upload = multer({ dest: pathForBgImage }).single('background');
 
 
 app.use(bodyParser.json());
+app.use(express.static(path.resolve(__dirname, '../build')));
 
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "http://localhost:3000");
@@ -56,11 +59,13 @@ app.post('/background', upload, function (req, res) {
     database.get('background').find({ id: '1' }).assign({
       src: req.file.filename,
       name: req.file.originalname,
-      path: `./../public/assets/${req.file.filename}`,
-    }).write()
+      path: `${pathForBgImage}/${req.file.filename}`,
+    }).write();
     res.send(database.get('background').find({ id: '1' }).value());
   }
 });
+
+app.use((req, res) => { res.sendFile(path.resolve(__dirname, '../build/index.html')) });
 
 io.on('connection', function(socket) {
   socket.on('UPDATE_PLAYERS_LIST', players => {

@@ -20,7 +20,8 @@
   position: relative;
   background-color: #f2f2f2;
   width: 500px;
-  padding: 50px
+  padding: 50px;
+  border-radius: 5px;
 }
 
 .app-login-form__close {

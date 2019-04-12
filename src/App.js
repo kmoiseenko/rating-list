@@ -182,7 +182,7 @@ class App extends Component {
 
   render() {
     return (
-      <div className="full-height" style={{ backgroundImage: `url(./assets/${this.state.background})` }}>
+      <div className="full-height" style={{ background: `url(./assets/${this.state.background})` }}>
         { this.state.loginForm ? this.loginForm() : null }
 
         <header>
