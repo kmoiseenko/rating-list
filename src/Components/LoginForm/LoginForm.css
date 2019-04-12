@@ -19,7 +19,7 @@
 .app-login-form__container {
   position: relative;
   background-color: #f2f2f2;
-  width: 500px;
+  width: 420px;
   padding: 50px;
   border-radius: 5px;
 }
@@ -61,4 +61,10 @@
 }
 .app-login-form__btn:hover {
   background-color: #0aadf7;
+}
+@media (max-width: 425px) {
+  .app-login-form__container {
+    width: 90%;
+    padding: 40px 20px;
+  }
 }

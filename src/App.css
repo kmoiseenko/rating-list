@@ -1,5 +1,4 @@
 header {
-  position: absolute;
   background-color: #f2f2f2;
 }
 
@@ -49,12 +48,14 @@ header {
   height: 100%;
   overflow: auto;
   padding: 100px 50px 10px 50px;
-  background-color: #f2f2f2;
 }
 
 @media (max-width: 768px) {
   .app-new-container {
     left: 5%;
     right: 5%;
+  }
+  .container {
+    width: 100%;
   }
 }
