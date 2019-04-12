@@ -1,0 +1,39 @@
+{
+  "players": [
+    {
+      "id": "_rynleknwc",
+      "name": "Apple",
+      "score": 7
+    },
+    {
+      "id": "_ckeabr1ot",
+      "name": "Max",
+      "score": 5
+    },
+    {
+      "id": "_9gcfebzqw",
+      "name": "GoD",
+      "score": 3
+    },
+    {
+      "id": "_81e3juyek",
+      "name": "Safari",
+      "score": 0
+    }
+  ],
+  "users": [
+    {
+      "id": "_plwacxyxq",
+      "login": "admin",
+      "password": 1
+    }
+  ],
+  "background": [
+    {
+      "id": "1",
+      "src": "6de1be2c88ccf92d7e582609e7ca6cb7",
+      "name": "pexels-photo-953214.png",
+      "path": "./../public/assets/6de1be2c88ccf92d7e582609e7ca6cb7"
+    }
+  ]
+}
