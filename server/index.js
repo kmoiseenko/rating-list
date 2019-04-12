@@ -33,7 +33,7 @@ app.get('/players', function (req, res) {
 
 app.post('/login', function (req, res) {
   const adminLogin = database.get('users').find({ login: req.body.login }).value();
-  const adminPassword = database.get('users').find({ password: +req.body.password }).value();
+  const adminPassword = database.get('users').find({ password: req.body.password }).value();
 
   if (adminLogin && adminPassword) {
     res.send({ id: adminLogin.id });
