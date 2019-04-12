@@ -4,53 +4,73 @@ const http = require('http').Server(app);
 const io = require('socket.io')(http);
 const low = require('lowdb');
 const FileSync = require('lowdb/adapters/FileSync');
+const multer  = require('multer');
+const fs = require('fs')
 
-const players = new FileSync('players.json');
-const users = new FileSync('users.json');
-const playersDb = low(players);
-const usersDb = low(users);
+
+const databaseFile = new FileSync('database.json');
+const database = low(databaseFile);
+const pathForBgImage = './../public/assets';
+const upload = multer({ dest: pathForBgImage }).single('background');
+
 
 app.use(bodyParser.json());
 
-app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "http://localhost:3000");
+  res.header('Access-Control-Allow-Credentials', 'true');
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Accept, Origin, Authorization');
   next();
 });
 
-app.get('/playes', function (req, res) {
-  res.send(playersDb);
-});
-
-app.post('/playes', function (req, res) {
-  playersDb.get('players').push(req.body).write();
-  res.send(playersDb.get('players').value());
-});
-
-app.put('/playes', function (req, res) {
-  playersDb.get('players').find({ id: req.body.id }).assign({ score: req.body.score }).write();
-  res.send(playersDb.get('players'));
-});
-
-app.delete('/playes', function (req, res) {
-  playersDb.get('players').remove({ id: req.body.id }).write();
-  res.send(playersDb.get('players'));
+app.get('/players', function (req, res) {
+  res.send(database.get('players'));
 });
 
 app.post('/login', function (req, res) {
-  const adminLogin = usersDb.get('users').find({ login: req.body.login }).value();
-  const adminPassword = usersDb.get('users').find({ password: +req.body.password }).value();
+  const adminLogin = database.get('users').find({ login: req.body.login }).value();
+  const adminPassword = database.get('users').find({ password: +req.body.password }).value();
 
   if (adminLogin && adminPassword) {
     res.send({ id: adminLogin.id });
+  } else {
+    res.send({ error: 'Wrong login or pass' });
+  }
+});
+
+app.get('/background', upload, function (req, res) {
+  res.send(database.get('background').find({ id: '1' }).value());
+});
+
+app.post('/background', upload, function (req, res) {
+  const fileNameInDB = database.get('background').find({ id: '1' }).value().src;
+
+  if (fileNameInDB) {
+    fs.unlink(`${pathForBgImage}/${fileNameInDB}`, (err) => {
+      if (err) { console.error(err) }
+    });
+  }
+
+  if (req.file) {
+    database.get('background').find({ id: '1' }).assign({
+      src: req.file.filename,
+      name: req.file.originalname,
+      path: `./../public/assets/${req.file.filename}`,
+    }).write()
+    res.send(database.get('background').find({ id: '1' }).value());
   }
 });
 
 io.on('connection', function(socket) {
   socket.on('UPDATE_PLAYERS_LIST', players => {
-    socket.broadcast.emit('UPDATE_PLAYERS_LIST', players);
-  })
+    database.assign({ players }).write();
+    socket.broadcast.emit('UPDATE_PLAYERS_LIST', database.get('players').value());
+  });
+
+  socket.on('UPDATE_BACKGROUND', background => {
+    socket.broadcast.emit('UPDATE_BACKGROUND', background);
+  });
 });
 
 http.listen(3001, function(){
