@@ -7,23 +7,23 @@
   background-color: #fff;
   box-shadow: 0 0 10px 0 #ccc;
   border-radius: 5px;
-  font-size: 20px;
+  font-size: 25px;
 }
-.app-list .app-list__element:nth-child(1) {
+/* .app-list .app-list__element:nth-child(1) {
   width: 70%;
   margin: 0 auto;
   font-size: 30px;
-}
-.app-list .app-list__element:nth-child(2) {
+} */
+/* .app-list .app-list__element:nth-child(2) {
   width: 80%;
   margin: 0 auto;
   font-size: 28px;
-}
-.app-list .app-list__element:nth-child(3) {
+} */
+/* .app-list .app-list__element:nth-child(3) {
   width: 90%;
   margin: 0 auto;
   font-size: 26px;
-}
+} */
 .app-list .app-list__element + .app-list__element {
   margin-top: 20px;
 }
@@ -38,7 +38,6 @@
   flex: 1;
   justify-content: flex-end;
   align-items: center;
-  padding-right: 10px;
 }
 .app-counter__control {
   display: flex;
@@ -52,24 +51,49 @@
 
 
 .app-list__element-add {
-  color: #0684bd;
+  position: absolute;
+  left: 102%;
+  fill: #0684bd;
+  width: 25px;
+  height: 25px;
   cursor: pointer;
-  margin-right: 10px;
+  transform: rotate(45deg);
 }
 .app-list__element-add:hover {
-  color: #0aadf7;
+  fill: #0aadf7;
 }
 .app-list__element-cancel,
 .app-list__element-delete {
   position: absolute;
-  left: 102%;
+  right: 102%;
   fill: #e83138;
+  width: 25px;
+  height: 25px;
   cursor: pointer;
-  font-size: 16px;
-  width: 20px;
-  height: 20px;
 }
 .app-list__element-cancel:hover,
 .app-list__element-delete:hover {
   fill: #ec5a5f;
+}
+
+
+
+@media (max-width: 768px) {
+  .app-list__element {
+    padding: 15px 10px;
+  }
+}
+@media (max-width: 425px) {
+  .app-list__element {
+    font-size: 16px;
+  }
+  .app-list__element-name {
+    width: 50%;
+  }
+  .app-list__element-add,
+  .app-list__element-cancel,
+  .app-list__element-delete {
+    width: 20px;
+    height: 20px;
+  }
 }

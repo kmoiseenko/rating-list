@@ -48,7 +48,7 @@ class LoginForm extends Component {
               <input
                 type="text"
                 className="app-login-form__input"
-                placeholder="Enter your login"
+                placeholder="Логин"
                 value={ this.state.login }
                 onChange={ (e) => this.updateState(e, 'login') }
               />
@@ -56,7 +56,7 @@ class LoginForm extends Component {
               <input
                 type="password"
                 className="app-login-form__input"
-                placeholder="Enter your password"
+                placeholder="Пароль"
                 value={ this.state.password }
                 onChange={ (e) => this.updateState(e, 'password') }
               />
@@ -66,7 +66,7 @@ class LoginForm extends Component {
               type="button"
               className="app-login-form__btn"
               onClick={ this.logIn }>
-              Log in
+              Войти в систему
             </button>
           </div>
         </div>

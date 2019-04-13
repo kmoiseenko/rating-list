@@ -3,22 +3,27 @@
     {
       "id": "_rynleknwc",
       "name": "Apple",
-      "score": 11
+      "score": 33
     },
     {
       "id": "_61yutpg7z",
       "name": "Chrome Prod",
-      "score": 11
+      "score": 17
     },
     {
       "id": "_ckeabr1ot",
       "name": "Max",
-      "score": 5
+      "score": 17
     },
     {
       "id": "_9gcfebzqw",
       "name": "GoD",
-      "score": 3
+      "score": 36
+    },
+    {
+      "id": "_q5q5e01w2",
+      "name": "Sam",
+      "score": 11
     }
   ],
   "users": [
@@ -31,9 +36,9 @@
   "background": [
     {
       "id": "1",
-      "src": "",
-      "name": "",
-      "path": ""
+      "src": "ea850911f7fc2a77b487fb47f006613f",
+      "name": "qhN3vtvXRKuD3wNAG8EjJA_thumb_462.jpg",
+      "path": "./../build/assets/ea850911f7fc2a77b487fb47f006613f"
     }
   ]
 }

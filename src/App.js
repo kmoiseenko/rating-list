@@ -67,7 +67,7 @@ class App extends Component {
     const { players } = this.state;
 
     players.push(item);
-    sortList(players);
+    if (this.state.isAdmin === false) { sortList(players) }
     this.props.client.emit('UPDATE_PLAYERS_LIST', players);
     this.setState({ players });
   }
@@ -101,7 +101,7 @@ class App extends Component {
         break;
     }
 
-    sortList(players);
+    if (this.state.isAdmin === false) { sortList(players) }
     this.props.client.emit('UPDATE_PLAYERS_LIST', players);
     this.setState({ players });
   }
@@ -205,7 +205,7 @@ class App extends Component {
     fetcher
       .get('players')
       .then(res => {
-        if (res.length) sortList(res)
+        if (res.length && this.state.isAdmin === false) { sortList(res) }
         this.setState({ players: res });
       });
 
@@ -219,10 +219,10 @@ class App extends Component {
       this.setState(prevState => ({ isAdmin: !prevState.isAdmin }));
     }
 
-    this.props.client.on(
-      'UPDATE_PLAYERS_LIST',
-      players => this.setState({ players })
-    );
+    this.props.client.on('UPDATE_PLAYERS_LIST', players => {
+      if (this.state.isAdmin === false) { sortList(players) }
+      this.setState({ players });
+    });
 
     this.props.client.on(
       'UPDATE_BACKGROUND',

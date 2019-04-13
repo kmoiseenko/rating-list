@@ -26,7 +26,7 @@ header {
 
 .container {
   position: relative;
-  width: 720px;
+  width: 768px;
   height: 100%;
   margin: 0 auto;
 }
@@ -36,26 +36,21 @@ header {
 }
 
 .app-new-container {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 99;
-  background-color: #ffffff;
+  padding: 0 15%;
+  margin-bottom: 5%;
 }
 
 .app-list {
   height: 100%;
   overflow: auto;
-  padding: 100px 50px 10px 50px;
+  padding: 10px 10%;
 }
 
 @media (max-width: 768px) {
-  .app-new-container {
-    left: 5%;
-    right: 5%;
-  }
   .container {
     width: 100%;
   }
+}
+@media (max-width: 425px) {
+
 }

@@ -5,9 +5,19 @@
   width: 100%;
   padding: 15px;
   border-radius: 5px;
-  font-size: 16px;
-  min-height: 57px;
+  font-size: 25px;
+  min-height: 63px;
   background-color: #fff;
   box-shadow: 0 0 10px 0 #ccc;
   border: none;
+}
+
+@media (max-width: 768px) {
+
+}
+@media (max-width: 425px) {
+  .app-btn-add {
+    font-size: 16px;
+    min-height: 52px;
+  }
 }

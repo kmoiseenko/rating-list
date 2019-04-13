@@ -12,11 +12,12 @@ const path = require('path');
 
 const databaseFile = new FileSync('database.json');
 const database = low(databaseFile);
+console.log(process.env.NODE_ENV);
 const pathForBgImage = process.env.NODE_ENV === 'development' ? './../public/assets' : './../build/assets';
 const upload = multer({ dest: pathForBgImage }).single('background');
 
 
-app.use(bodyParser.json());
+app.use(bodyParser.json({ limit: '50mb' }));
 app.use(express.static(path.resolve(__dirname, '../build')));
 
 app.use((req, res, next) => {
@@ -38,7 +39,7 @@ app.post('/login', function (req, res) {
   if (adminLogin && adminPassword) {
     res.send({ id: adminLogin.id });
   } else {
-    res.send({ error: 'Wrong login or pass' });
+    res.send({ error: 'Неверный логин или/и пароль' });
   }
 });
 
